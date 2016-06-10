@@ -1,6 +1,16 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
+from twilio.rest import TwilioRestClient
 app = Flask(__name__)
+
+# Source twilio credentials
+account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+
+if not account_sid:
+    print "Source your secrets!"
+
+client = TwilioRestClient(account_sid, auth_token)
 
 @app.route("/")
 def hello():
