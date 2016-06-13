@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Expense Tracker</title>
+</head>
+<body>
+<h1>Messages</h1>
+{% if msgs %}
+	<ul>
+	    {% for msg in msgs[1:] %}
+	        <li>{{msg}}</li>
+	    {% endfor %}
+	</ul>
+{% endif %}
+</body>
+</html>

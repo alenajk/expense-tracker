@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template
 from twilio.rest import TwilioRestClient
+import twilio.twiml
 app = Flask(__name__)
 
 # Source twilio credentials
@@ -14,7 +15,12 @@ client = TwilioRestClient(account_sid, auth_token)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    msgs = [str(msg.body) for msg in client.messages.list()]
+    print msgs, type(msgs), msgs[1]
+    print dir(client.messages)
+    # import pdb
+    # pdb.set_trace()
+    return render_template('homepage.html', msgs=msgs)
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))
