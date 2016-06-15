@@ -25,7 +25,6 @@ def savemsg():
 	print "testing"
 	if request.method == "POST":
 		msg = request.form.get('Body')
-		print 'request.body :', request.body
 		print 'msg :', msg
 
 	return 'Testing newmsg app route'
