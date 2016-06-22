@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import Flask, render_template, request
 from twilio.rest import TwilioRestClient
 import twilio.twiml
@@ -18,7 +19,6 @@ client = TwilioRestClient(account_sid, auth_token)
 @app.route("/")
 def hello():
 
-    print db.session.query(Expense).all()
     msgs = [str(msg.body) for msg in client.messages.list()]
 
     return render_template('homepage.html', msgs=msgs)
@@ -28,7 +28,14 @@ def savemsg():
 
     if request.method == "POST":
         msg = request.form.get('Body')
-        print 'msg :', msg
+        date = str(datetime.now()).split()[0]
+        msg_parsed = msg.split()
+        amount = msg_parsed[0]
+        category = msg_parsed[1]
+        description = ' '.join(msg_parsed[2:])
+        expense = Expense(date=date,amount=amount,category=category,description=description)
+        db.session.add(expense)
+        db.session.commit()
 
     return 'Testing newmsg app route'
 
