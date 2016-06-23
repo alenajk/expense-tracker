@@ -12,7 +12,7 @@ class Expense(db.Model):
 
 def connect_to_db(app):
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     db.init_app(app)
 
 if __name__ == "__main__":
