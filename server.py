@@ -19,7 +19,11 @@ client = TwilioRestClient(account_sid, auth_token)
 @app.route("/")
 def hello():
 
-    msgs = [str(msg.body) for msg in client.messages.list()]
+    msgs = [msg for msg in db.session.query(Expense).all()]
+
+    for msg in msgs:
+        msg.date = msg.date.isoformat()
+        msg.description = str(msg.description)
 
     return render_template('homepage.html', msgs=msgs)
 

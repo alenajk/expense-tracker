@@ -4,11 +4,11 @@
 	<title>Expense Tracker</title>
 </head>
 <body>
-<h1>Messages</h1>
+<h1>Expenses</h1>
 {% if msgs %}
 	<ul>
-	    {% for msg in msgs[1:] %}
-	        <li>{{msg}}</li>
+	    {% for msg in msgs %}
+	        <li>{{msg.date, msg.description, msg.amount}}</li>
 	    {% endfor %}
 	</ul>
 {% endif %}
