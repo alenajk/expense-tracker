@@ -16,7 +16,7 @@ if not account_sid:
 
 client = TwilioRestClient(account_sid, auth_token)
 
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def hello():
 
     msgs = [msg for msg in db.session.query(Expense).all()]
@@ -24,8 +24,17 @@ def hello():
     for msg in msgs:
         msg.date = msg.date.isoformat()
         msg.description = str(msg.description)
+        msg.amount = "$" + str(msg.amount)
+        if msg.amount[-2:] == ".0":
+            msg.amount = msg.amount[:-2]
 
-    return render_template('homepage.html', msgs=msgs)
+    categories = set([str(msg.category) for msg in msgs])
+    if request.method == "POST":
+        for msg in msgs:
+            if msg.category not in request.form.getlist('category'):
+                msgs.remove(msg)
+
+    return render_template('homepage.html', msgs=msgs,categories=categories)
 
 @app.route("/newmsg", methods=['GET','POST'])
 def savemsg():

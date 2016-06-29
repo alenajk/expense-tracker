@@ -2,15 +2,25 @@
 <html>
 <head>
 	<title>Expense Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
 <h1>Expenses</h1>
 {% if msgs %}
 	<ul>
 	    {% for msg in msgs %}
-	        <li>{{msg.date, msg.description, msg.amount}}</li>
+	        <li>{{msg.date}} {{msg.description}} {{ msg.amount }} {{msg.category}}</li>
 	    {% endfor %}
 	</ul>
+    {% if categories %}
+        <form method='POST' autocomplete="off">
+            {% for category in categories %}
+                <input type="checkbox" name="category" value={{category}}>{{category}}<br>
+            {% endfor %}
+            <input type="checkbox" name="category" value="Other">Other<br>
+            <input class="btn" type="submit" value="Submit">
+        </form>
+    {% endif %}
 {% endif %}
 </body>
 </html>
