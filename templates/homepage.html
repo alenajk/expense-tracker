@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Expense Tracker</title>
+    <title>Expense Tracker</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 </head>
 <body>
 <h1 id='h1'>Expenses</h1>
 {% if msgs %}
-	<div>
-        <ul>
-    	    {% for msg in msgs %}
-    	        <li id={{msg.category}}>{{msg.date}} {{msg.description}} {{ msg.amount }} {{msg.category}}</li>
-    	    {% endfor %}
-    	</ul>
-    </div>
     {% if categories %}
-        <div>
+        <section class="categories">
             <form method='POST' autocomplete="off">
                 {% for category in categories %}
                     <input class="checkbox" id="checkbox-{{category}}" type="checkbox" checked="True" name="category" value={{category}}>{{category}}<br>
                 {% endfor %}
-                <input class="btn" type="submit" value="Submit">
             </form>
-        </div>
+        </section>
     {% endif %}
+    <section class="expenses">
+        {% for msg in msgs %}
+            <article class="expense {{msg.category}}">
+                <div class="upper-bar">
+                    {{msg.date}}
+                    <span class="category">{{msg.category}}</span>
+                </div>
+                <div class="lower-bar">
+                    {{msg.description}}
+                    <span class="amount">{{ msg.amount }}</span>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+
 {% endif %}
-<script>
-    $('.checkbox').click(function(){
-        var cat = $(this).attr('value');
-        if ($(this).attr('checked')){
-            $('#'+cat).hide()
-            $(this).attr('checked',false)
-        } else {
-            $(this).attr('checked',true)
-            $('#'+cat).show()
-        };
-    });
-</script>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="/static/js/homepage.js"></script>
 </body>
 </html>
