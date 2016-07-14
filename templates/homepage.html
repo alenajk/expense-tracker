@@ -3,6 +3,7 @@
 <head>
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 </head>
 <body>
 <h1 id='h1'>Expenses</h1>
@@ -17,13 +18,16 @@
             <span>
                 <p>total = <span id='total'></span></p>
             </span>
+            <p>Enter start date: <input type="text" id="datepicker"></p>
+            <p>Enter end date: <input type="text" id="datepicker2"></p>
+            <button id='filter-button' type="button">Filter by date</button>
         </section>
     {% endif %}
     <section class="expenses">
         {% for msg in msgs %}
             <article class="expense {{msg.category}}">
                 <div class="upper-bar">
-                    {{msg.date}}
+                    <span class="date"> {{msg.date}}</span>
                     <span class="category">{{msg.category}}</span>
                 </div>
                 <div class="lower-bar">
@@ -35,7 +39,9 @@
     </section>
 
 {% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="/static/js/homepage.js"></script>
 </body>
 </html>
