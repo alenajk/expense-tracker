@@ -7,10 +7,10 @@ $('.checkbox').click(function(){
         $(this).attr('checked',true)
         $('.'+cat).removeClass('hidden');
     };
-    get_total();
+    getTotal();
 });
 
-function get_total() {
+function getTotal() {
     var activeExpenses = $('.expense').not('.hidden');
     var total = 0;
     $.each(activeExpenses, function(activeExpense) {
@@ -22,7 +22,7 @@ function get_total() {
 };
 
 $(document).ready(function(){
-    get_total();    
+    getTotal();    
 });
 
 $(function() {
@@ -60,7 +60,7 @@ $('#filter-button').click(function(){
         };
     });
     toggleCheckboxes(getActiveCategories());
-    get_total();
+    getTotal();
 });
 
 function getActiveCategories(){

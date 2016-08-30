@@ -20,7 +20,6 @@ client = TwilioRestClient(account_sid, auth_token)
 def hello():
 
     msgs = [msg for msg in db.session.query(Expense).all()]
-
     for msg in msgs:
         msg.date = msg.date.isoformat()
         msg.description = str(msg.description)
