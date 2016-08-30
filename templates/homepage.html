@@ -12,7 +12,7 @@
         <section class="categories">
             <form method='POST' autocomplete="off">
                 {% for category in categories %}
-                    <input class="checkbox" id="checkbox-{{category}}" type="checkbox" checked="True" name="category" value={{category}}>{{category}}<br>
+                    <span class="checkbox-span" id="checkbox-cat-{{category}}"><input class="checkbox" id="checkbox-{{category}}" type="checkbox" checked="True" name="category" value={{category}}>{{category}}</span><br>
                 {% endfor %}
             </form>
             <span>

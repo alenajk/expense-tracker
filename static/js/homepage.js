@@ -30,8 +30,6 @@ $(function() {
  $( "#datepicker2" ).datepicker();
 });
 
-var months = {'Jul': '07'};
-
 var isAfter = function(startDate, endDate){
     var start = moment(0);
     var end = moment();
@@ -53,6 +51,7 @@ $('#filter-button').click(function(){
         var startDate = String($('#datepicker').datepicker('getDate'));
         var endDate = String($('#datepicker2').datepicker('getDate'));
         if (isAfter(expenseDate, startDate) || isAfter(endDate, expenseDate)){
+            // hide expense entry if before startDate or after endDate
             $(this).parent().parent().addClass('hidden');
         } else {
             if ($(this).parent().parent().hasClass('hidden')){
@@ -60,5 +59,30 @@ $('#filter-button').click(function(){
             }; 
         };
     });
-
+    toggleCheckboxes(getActiveCategories());
 });
+
+function getActiveCategories(){
+
+    var activeExpenses = $('.expense').not('.hidden');
+    var activeCategories = []
+    
+    // Iterate over active expenses, push category to activeCategories
+    $.each(activeExpenses, function(activeExpenses) {
+        var category = $(this).find('.category')[0].innerHTML;
+        if ($.inArray(category, activeCategories) == -1) {
+            activeCategories.push(category);            
+        }
+    });
+    return activeCategories;
+}
+
+function toggleCheckboxes(activeCategories){
+    $.each($('.checkbox-span'), function(i, val) {
+        if ($.inArray(val.innerText, activeCategories) == -1) {
+            $(this).addClass('hidden');
+        }else {
+            $(this).removeClass('hidden');
+        }
+    })
+}
