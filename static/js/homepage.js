@@ -15,7 +15,7 @@ function get_total() {
     var total = 0;
     $.each(activeExpenses, function(activeExpense) {
         var amount = $(this).children().children('.amount')[0].innerText;
-        amount = parseInt(amount.slice(1));
+        amount = parseFloat(amount.slice(1));
         total = total + amount;
     });
     $("#total").html('$' + String(total));
@@ -60,6 +60,7 @@ $('#filter-button').click(function(){
         };
     });
     toggleCheckboxes(getActiveCategories());
+    get_total();
 });
 
 function getActiveCategories(){
